@@ -32,3 +32,22 @@ Now you are inside of zm container
 <code>updatemysql.sh </code>
 
 <code>exit</code>
+
+<code>sudo docker restart zm</code>
+
+<code>http://localhost:8080/zm/</code>
+
+(To use msmtp for emailing please refer https://bkjaya.wordpress.com/2020/12/24/how-to-install-the-latest-zoneminder-master-latest-on-ubuntu-20-04-using-a-docker-image/)
+
+
+
+# Note:- If you want your docker container zm to detect ip camera automatically, you will have to use following command when creating the container .
+
+<code>sudo docker create -t -p 80:80 --name zm --network=host --privileged=true -e TZ=Asia/Colombo bkjaya1952/docker-zoneminder-master-mysql5.7-php7.2</code>
+
+In this case you will have to restrain in using the port 80 in your host for any other purpose when running the zm container.
+
+Then the zoneminder web panel will be at <code>http://localhost/zm/</code>
+
+
+
