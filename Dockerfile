@@ -17,9 +17,6 @@ RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     apt update && \
     apt -y install gnupg msmtp tzdata supervisor && \ 
     apt -y -f install zoneminder && \
-    rm -rf /var/lib/apt/lists/* && \ 
-    apt -y autoremove  && \       
-    sed -i "32i sql_mode = NO_ENGINE_SUBSTITUTION" /etc/mysql/my.cnf && \
     /etc/init.d/mysql restart
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
