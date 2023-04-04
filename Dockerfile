@@ -13,15 +13,9 @@ RUN apt install -y software-properties-common
 RUN apt install -y policykit-1
 
 RUN add-apt-repository ppa:iconnor/zoneminder-master && \
-    apt update && \
-    apt -y install gnupg msmtp tzdata supervisor mysql-server-5.7 && \ 
-    rm /etc/mysql/my.cnf && \
-    cp /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/my.cnf && \
+    apt -y install gnupg msmtp tzdata supervisor && \ 
     apt -y -f install zoneminder && \
-    rm -rf /var/lib/apt/lists/* && \ 
-    apt -y autoremove  && \       
-    sed -i "32i sql_mode = NO_ENGINE_SUBSTITUTION" /etc/mysql/my.cnf && \
-    service mysql restart
+   /etc/init.d/mysql start
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
