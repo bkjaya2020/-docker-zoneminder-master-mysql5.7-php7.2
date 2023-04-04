@@ -19,7 +19,7 @@ RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     rm -rf /var/lib/apt/lists/* && \ 
     apt -y autoremove  && \       
     sed -i "32i sql_mode = NO_ENGINE_SUBSTITUTION" /etc/mysql/my.cnf && \
-    service mysql restart
+    /etc/init.d/mysql restart
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
