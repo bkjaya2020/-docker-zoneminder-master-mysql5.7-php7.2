@@ -7,19 +7,23 @@ RUN apt update && \
     apt upgrade --assume-yes
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN export SUDU_FORCE_REMOVE=yes
+
 RUN apt install -y software-properties-common 
 
 RUN apt install -y policykit-1
 
 RUN add-apt-repository ppa:iconnor/zoneminder-master && \
+    apt update && \
     apt -y install gnupg msmtp tzdata supervisor && \ 
     apt -y -f install zoneminder && \
-   /etc/init.d/mysql start
+    rm -rf /var/lib/apt/lists/* && \ 
+    apt -y autoremove  && \       
+    sed -i "32i sql_mode = NO_ENGINE_SUBSTITUTION" /etc/mysql/my.cnf && \
+    service mysql restart
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
- 
+
 
 RUN chmod 740 /etc/zm/zm.conf && \
     chown root:www-data /etc/zm/zm.conf && \
