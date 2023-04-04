@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt install -y software-properties-common 
 
-RUN apt install -y policykit-1
+RUN apt install -y policykit-1 apt-utils 
 
 RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     apt update && \
