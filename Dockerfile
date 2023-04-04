@@ -22,7 +22,8 @@ RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     /etc/init.d/mysql restart
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-# COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
+COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
+RUN chmod 777 /usr/share/zoneminder/db/zm_create.sql
 
 
 RUN chmod 740 /etc/zm/zm.conf && \
