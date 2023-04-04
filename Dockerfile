@@ -3,14 +3,15 @@ FROM ubuntu:bionic
 MAINTAINER B.K.Jayasundera
 
 # Update base packages
-RUN apt update && \
-    apt upgrade --assume-yes
+RUN apt update 
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt install -y software-properties-common 
 
 RUN apt install -y policykit-1 apt-utils 
+COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
+RUN chmod 777 /usr/share/zoneminder/db/zm_create.sql
 
 RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     apt update && \
@@ -22,8 +23,6 @@ RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     /etc/init.d/mysql restart
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY zm_create.sql /usr/share/zoneminder/db/zm_create.sql
-RUN chmod 777 /usr/share/zoneminder/db/zm_create.sql
 
 
 RUN chmod 740 /etc/zm/zm.conf && \
