@@ -14,7 +14,7 @@ RUN apt install -y policykit-1
 
 RUN add-apt-repository ppa:iconnor/zoneminder-master && \
     apt update && \
-    apt -y install gnupg msmtp tzdata supervisor && \ 
+    apt -y install gnupg msmtp tzdata supervisor mysql-server-5.7 && \ 
     apt -y -f install zoneminder && \
     rm -rf /var/lib/apt/lists/* && \ 
     apt -y autoremove  && \       
